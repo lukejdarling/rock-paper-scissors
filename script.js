@@ -8,6 +8,10 @@ let computerScore = 0;
 
 let roundNumber = 1;
 
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach(button => button.addEventListener("click", playRound));
+
 function getComputerChoice(){
 
     const moves = ["rock", "paper", "scissors"];
@@ -18,18 +22,23 @@ function getComputerChoice(){
 
 }
 
-function getHumanChoice(){
-    
-    while(true){
+function getHumanChoice(e){
 
-        let choice = prompt("What is your choice? Rock, Paper or Scissors?").toLowerCase();
+    let choice = e.target.className;
 
-        if(choice === "rock" || choice === "paper" || choice === "scissors"){
+    switch(choice){
+        case "rock":
             return choice;
-
-        } else {
-            alert("Enter Rock, Paper or Scissors.");
-        }
+            break;
+        case "paper":
+            return choice;
+            break;
+        case "scissors":
+            return choice;
+            break;
+        default:
+            return choice;
+            break;
     }
     
 }
@@ -114,29 +123,24 @@ function playRound(humanChoice, computerChoice){
 }
 
 function playGame(){
-    while (roundNumber <= 5){
+    // while (roundNumber <= 5){
 
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
 
         playRound(humanSelection, computerSelection);
 
-        if(roundNumber === 5){
-            if(humanScore > computerScore){
-                alert(`Game over! You win! Your score is ${humanScore} and the computer scored ${computerScore}`)
-            } else if (humanScore < computerScore){
-                alert(`Game over! You lose! Your score is ${humanScore} and the computer scored ${computerScore}`)
-            } else {
-                alert(`Game over! Draw! Your score is ${humanScore} and the computer scored ${computerScore}`)
-            }
+    //     if(roundNumber === 5){
+    //         if(humanScore > computerScore){
+    //             alert(`Game over! You win! Your score is ${humanScore} and the computer scored ${computerScore}`)
+    //         } else if (humanScore < computerScore){
+    //             alert(`Game over! You lose! Your score is ${humanScore} and the computer scored ${computerScore}`)
+    //         } else {
+    //             alert(`Game over! Draw! Your score is ${humanScore} and the computer scored ${computerScore}`)
+    //         }
             
-        }
-            roundNumber++
-    }
+    //     }
+    //         roundNumber++
+    // }
 
 }
-
-
-playGame();
-
-
