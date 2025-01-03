@@ -4,13 +4,42 @@
 // return that value
 
 let humanScore = 0;
+
 let computerScore = 0;
+
+const roundNumberDiv = document.querySelector(".round-number");
+const resultDiv = document.querySelector(".result");
 
 let roundNumber = 1;
 
-const buttons = document.querySelectorAll("button");
+let humanScoreDiv = document.querySelector(".human");
+let computerScoreDiv = document.querySelector(".computer");
 
-buttons.forEach(button => button.addEventListener("click", playRound));
+const choices = document.querySelectorAll("button");
+
+choices.forEach(button => button.addEventListener("click", handleMove));
+
+
+function handleMove(e){
+
+    let humanChoice = e.target.className;
+    let computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+    roundNumber++;
+    console.log(roundNumber);
+    if(roundNumber > 5){
+        roundNumberDiv.innerText = "5";
+        if(humanScore > computerScore){
+            resultDiv.innerText = "Game Over You Win!";
+        } else if (computerScore > humanScore){
+            resultDiv.innerText = "Game Over You Win!";
+        } else {
+            resultDiv.innerText = "Game Over It Is A Draw!";
+        }
+    } else {
+        roundNumberDiv.innerText = roundNumber;
+    }
+}
 
 function getComputerChoice(){
 
@@ -22,26 +51,6 @@ function getComputerChoice(){
 
 }
 
-function getHumanChoice(e){
-
-    let choice = e.target.className;
-
-    switch(choice){
-        case "rock":
-            return choice;
-            break;
-        case "paper":
-            return choice;
-            break;
-        case "scissors":
-            return choice;
-            break;
-        default:
-            return choice;
-            break;
-    }
-    
-}
 
 function playRound(humanChoice, computerChoice){
 
@@ -49,17 +58,19 @@ function playRound(humanChoice, computerChoice){
         case "rock":
             switch(computerChoice){
                 case "scissors":
-                    alert("You win!");
+                    resultDiv.innerText = "You win!";
                     humanScore++;
+                    humanScoreDiv.innerText = humanScore;
                     break;
                 
                 case "paper":
-                    alert("You lose!");
+                    resultDiv.innerText = "Computer win!";
                     computerScore++;
+                    computerScoreDiv.innerText = computerScore;
                     break;
 
                 case "rock":
-                    alert("Draw!");
+                    resultDiv.innerText = "A draw!";
                     break;
                     
                 default:
@@ -72,17 +83,19 @@ function playRound(humanChoice, computerChoice){
         case "paper":
             switch(computerChoice){
                 case "rock":
-                    alert("You win!");
+                    resultDiv.innerText = "You win!";
                     humanScore++;
+                    humanScoreDiv.innerText = humanScore;
                     break;
                 
                 case "paper":
-                    alert("Draw!");
+                    resultDiv.innerText = "A draw!";
                     break;
 
                 case "scissors":
-                    alert("You lose!");
+                    resultDiv.innerText = "Computer win!";
                     computerScore++
+                    computerScoreDiv.innerText = computerScore;
                     break;
 
                 default:
@@ -95,17 +108,20 @@ function playRound(humanChoice, computerChoice){
         case "scissors":
             switch(computerChoice){
                 case "rock":
-                    alert("You lose!");
+                    resultDiv.innerText = "Computer win!";
                     computerScore++;
+                    computerScoreDiv.innerText = computerScore;
+
                     break;
                 
                 case "paper":
-                    alert("You win!");
+                    resultDiv.innerText = "You win!";
                     humanScore++;
+                    humanScoreDiv.innerText = humanScore;
                     break;
 
                 case "scissors":
-                    alert("Draw!");
+                    resultDiv.innerText = "A draw!";
                     break;
 
                 default:
@@ -119,28 +135,5 @@ function playRound(humanChoice, computerChoice){
             alert("Invalid");
             break;
     }
-
-}
-
-function playGame(){
-    // while (roundNumber <= 5){
-
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-
-        playRound(humanSelection, computerSelection);
-
-    //     if(roundNumber === 5){
-    //         if(humanScore > computerScore){
-    //             alert(`Game over! You win! Your score is ${humanScore} and the computer scored ${computerScore}`)
-    //         } else if (humanScore < computerScore){
-    //             alert(`Game over! You lose! Your score is ${humanScore} and the computer scored ${computerScore}`)
-    //         } else {
-    //             alert(`Game over! Draw! Your score is ${humanScore} and the computer scored ${computerScore}`)
-    //         }
-            
-    //     }
-    //         roundNumber++
-    // }
 
 }
